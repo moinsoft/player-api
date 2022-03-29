@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const shortid = require('shortid');
 const fs = require('fs/promises');
 const path = require('path');
+const dbLocation = path.resolve('src', 'data.json');
 
 const app = express();
 
@@ -33,7 +34,7 @@ app.post('/', async (req, res) => {
   };
 
 
-  const dbLocation = path.resolve('src', 'data.json')
+  
   const data = await fs.readFile(dbLocation);
   const players = JSON.parse(data);
   players.push(player)
@@ -42,6 +43,15 @@ app.post('/', async (req, res) => {
   await fs.writeFile(dbLocation, JSON.stringify(players));
   res.status(201).json(player);
 
+});
+
+
+// GET    - /     - find all players
+
+app.get('/', async (req, res) => {
+  const data = await fs.readFile(dbLocation);
+  const players = JSON.parse(data);
+  res.status(201).json(players);
 });
 
 

@@ -10,3 +10,9 @@ Content-Type: application/json
   "country": "Bangladesh",
   "rank": 7
 }
+
+
+###
+
+
+GET http://localhost:4000
