@@ -72,3 +72,9 @@ Content-Type: application/json
 
 
 DELETE http://localhost:4000/SIkHP09yM
+
+
+###
+
+
+GET https://api.github.com/users/moinsoft
