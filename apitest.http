@@ -66,3 +66,9 @@ Content-Type: application/json
   "country": "Bangladesh",
   "rank": 1
 }
+
+
+###
+
+
+DELETE http://localhost:4000/SIkHP09yM

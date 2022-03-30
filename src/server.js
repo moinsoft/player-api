@@ -18,11 +18,37 @@ app.use(express.json());
  * GET    - /     - find all players  (Done 2nd)
  * POST   - /     - create a new player and save into db (Done 1st)
  * GET    - /:id  - find a single player by id (Done 3rd)
- * PUT    - /:id  - update all Data or create player
+ * PUT    - /:id  - update all Data or create player  (Done 5th)
  * PATCH  - /:id  - update player only name or id or rank (Done 4th)
- * DELETE - /:id  - delete player from db
+ * DELETE - /:id  - delete player from db  (Done 6th)
 */
 
+
+
+
+// DELETE - /:id  - delete player from db
+
+
+app.delete('/:id', async (req, res) => {
+  const id = req.params.id
+
+  const data = await fs.readFile(dbLocation);
+  const players = JSON.parse(data);
+  let player = players.find(item => item.id === id);
+
+
+  if (!player) {
+    return res.status(404).json({ message: 'Player Not Found' });
+  }
+
+
+  const newPlayers = players.filter(item => item.id !== id);
+
+  await fs.writeFile(dbLocation, JSON.stringify(newPlayers));
+  res.status(203).send();
+
+
+});
 
 
 
