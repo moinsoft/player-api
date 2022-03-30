@@ -24,6 +24,18 @@ app.use(express.json());
 */
 
 
+// Naming Conventions
+
+/**
+ * GET      - /products         - find all available products from the system.
+ * POST     - /products         - create new product.
+ * GET      - /products/id      - find a single product.
+ * PUT      - /products/id      - update a single product.
+ * PATCH    - /products/id      - update a single product.
+ * DELETE   - /products/id      - delete a single product.
+*/
+
+
 
 
 // DELETE - /:id  - delete player from db
