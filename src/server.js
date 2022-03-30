@@ -131,6 +131,7 @@ app.get('/:id', async (req, res) => {
   }
 
 
+  res.set('Cache-control', 'public, max-age=300');
   res.status(200).json(player);
 
 
@@ -169,6 +170,7 @@ app.post('/', async (req, res) => {
 app.get('/', async (req, res) => {
   const data = await fs.readFile(dbLocation);
   const players = JSON.parse(data);
+  res.set('Cache-control', 'public, max-age=300');
   res.status(201).json(players);
 });
 
