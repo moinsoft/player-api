@@ -21,12 +21,49 @@ app.use(express.json());
  * PUT    - /:id  - update all Data or create player
  * PATCH  - /:id  - update player only name or id or rank (Done 4th)
  * DELETE - /:id  - delete player from db
- */
+*/
 
 
 
 
 
+// PUT    - /:id  - update all Data or create player
+
+app.put('/:id', async (req, res) => {
+  const id = req.params.id
+
+  const data = await fs.readFile(dbLocation);
+  const players = JSON.parse(data);
+  let player = players.find(item => item.id === id);
+
+  if (!player) {
+
+    player = {
+      ...req.body,
+      id: shortid.generate()
+    };
+
+    players.push(player);
+
+  } else {
+
+    // player = {
+    //   id: player.id,
+    //   ...req.body
+    // };
+
+
+    player.name = req.body.name;
+    player.country = req.body.country;
+    player.rank = req.body.rank;
+
+  }
+
+
+  await fs.writeFile(dbLocation, JSON.stringify(players));
+  res.status(200).json(player);
+
+});
 
 //  PATCH  - /:id  - update player only name or id or rank
 
@@ -82,6 +119,7 @@ app.get('/:id', async (req, res) => {
 //  POST   - /     - create a new player and save into db
 
 app.post('/', async (req, res) => {
+
   const player = {
     ...req.body,
     id: shortid.generate()
